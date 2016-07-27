@@ -45,8 +45,8 @@ if [ -n "$MAILGUN_API_KEY" ]; then
         -F from='Deployments <postmaster@leadgeni.us>' \
         -F to='product@leadgenius.com' \
         -F subject="Deployment: $CIRCLE_PROJECT_REPONAME" \
-        -F text="Your friendly neighorhood LG engineering team just deployed a new version." \
-        --form-string html="<p>Your friendly neighorhood LG engineering team just deployed a new version.</p><p>Changes since last deployment:<br>$CIRCLE_COMPARE_URL</p>"
+        -F text="Your friendly neighborhood LG engineering team just deployed a new version." \
+        --form-string html="<p>Your friendly neighborhood LG engineering team just deployed a new version. &#128588;</p><p>Changes since last deployment:<br>$CIRCLE_COMPARE_URL</p>"
     echo ""
 else
     echo "Variable is Unset - MAILGUN_API_KEY"
