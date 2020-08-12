@@ -1,16 +1,12 @@
 #!/bin/bash
 # Required environment variables:
-#
 # NEW_RELIC_API_KEY         (see https://rpm.newrelic.com/accounts/{account_id}/integrations?page=api_keys)
 # NEW_RELIC_APPLICATION_ID  (eg. 12345678)
 # SENTRY_API_KEY            (see https://app.getsentry.com/api/)
 # SENTRY_PROJECT_PATH       (eg. Leadgenius/PROJECT_NAME)
 # MAILGUN_API_KEY           (see https://mailgun.com/app/account/settings)
-# LIBRATO_USER_NAME         (see https://metrics.librato.com/account/tokens)
-# LIBRATO_API_KEY           (see https://metrics.librato.com/account/tokens)
 
 # Environment variables sourced from CircleCi:
-#
 # CIRCLE_PROJECT_REPONAME   (eg. reponame)
 # CIRCLE_BUILD_NUM          (eg. 123)
 # CIRCLE_BUILD_URL          (eg. https://circleci.com/gh/MobileWorks/reponame/123)
@@ -27,19 +23,6 @@ if [ -n "$NEW_RELIC_API_KEY" ]; then
     echo ""
 else
     echo "Variable is Unset - NEW_RELIC_API_KEY"
-fi
-
-echo "Notifying Librato:"
-if [ -n "$LIBRATO_API_KEY" ]; then
-    curl -sX POST 'https://metrics-api.librato.com/v1/annotations/app-deploys' \
-      -u "$LIBRATO_USER_NAME:$LIBRATO_API_KEY" \
-      -d "title=Deployed $CIRCLE_PROJECT_REPONAME-$CIRCLE_BUILD_NUM" \
-      -d "links[0][label]=Circle Build URL" \
-      -d "links[0][href]=$CIRCLE_BUILD_URL" \
-      -d "links[0][rel]=circleci"
-    echo ""
-else
-    echo "Variable is Unset - LIBRATO_API_KEY"
 fi
 
 echo "Notifying Sentry:"
