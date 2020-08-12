@@ -30,7 +30,7 @@ if [ -n "$SENTRY_API_KEY" ]; then
     curl -sX POST "https://app.getsentry.com/api/0/projects/$SENTRY_PROJECT_PATH/releases/" \
         -H "Authorization: Bearer $SENTRY_API_KEY" \
         -H "Content-Type: application/json" \
-        -d "{\"version\": \"$CIRCLE_PROJECT_REPONAME-$CIRCLE_BUILD_NUM\", \"url\": \"$CIRCLE_BUILD_URL\"}"
+        -d "{\"version\": \"$CIRCLE_PROJECT_REPONAME-$CIRCLE_BUILD_NUM\", \"url\": \"$CIRCLE_BUILD_URL\", \"environment\": \"production\"}"
     echo ""
 else
     echo "Variable is Unset - SENTRY_API_KEY"
