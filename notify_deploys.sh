@@ -27,7 +27,7 @@ fi
 
 echo "Notifying Sentry:"
 if [ -n "$SENTRY_API_KEY" ]; then
-    curl -sX POST "https://app.getsentry.com/api/0/projects/$SENTRY_PROJECT_PATH/releases/" \
+    curl -sX POST "https://sentry.io/api/0/organization/$SENTRY_PROJECT_PATH/releases/" \
         -H "Authorization: Bearer $SENTRY_API_KEY" \
         -H "Content-Type: application/json" \
         -d "{\"version\": \"$CIRCLE_PROJECT_REPONAME-$CIRCLE_BUILD_NUM\", \"url\": \"$CIRCLE_BUILD_URL\", \"environment\": \"production\"}"
