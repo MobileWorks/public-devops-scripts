@@ -20,16 +20,18 @@ if [ -n "$NEW_RELIC_API_KEY" ]; then
         -H "X-Api-Key:$NEW_RELIC_API_KEY" \
         -H "Content-Type: application/json" \
         -d "{\"deployment\": {\"revision\": \"$CIRCLE_PROJECT_REPONAME-$CIRCLE_BUILD_NUM\", \"description\": \"$CIRCLE_PROJECT_REPONAME\"}}"
+    echo ""
 else
     echo "Variable is Unset - NEW_RELIC_API_KEY"
 fi
 
 echo "Notifying Sentry:"
 if [ -n "$SENTRY_API_KEY" ]; then
-    curl -sX POST "https://sentry.io/api/0/organization/$SENTRY_ORGANIZATION/releases/" \
+    curl -sX POST "https://sentry.io/api/0/organizations/$SENTRY_ORGANIZATION/releases/" \
         -H "Authorization: Bearer $SENTRY_API_KEY" \
         -H "Content-Type: application/json" \
         -d "{\"version\": \"$CIRCLE_PROJECT_REPONAME-$CIRCLE_BUILD_NUM\", \"url\": \"$CIRCLE_BUILD_URL\", \"environment\": \"production\", \"projects\": [\"$CIRCLE_PROJECT_REPONAME\"]}"
+      echo ""
 else
     echo "Variable is Unset - SENTRY_API_KEY"
 fi
@@ -43,6 +45,7 @@ if [ -n "$MAILGUN_API_KEY" ]; then
         -F subject="Deployment: $CIRCLE_PROJECT_REPONAME" \
         -F text="Your friendly neighborhood LG engineering team just deployed a new version." \
         --form-string html="<p>Your friendly neighborhood LG engineering team just deployed a new version. &#128588;</p><p>Changes since last deployment:<br>$CIRCLE_COMPARE_URL</p>"
+      echo ""
 else
     echo "Variable is Unset - MAILGUN_API_KEY"
 fi
