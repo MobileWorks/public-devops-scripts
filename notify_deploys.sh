@@ -27,10 +27,11 @@ fi
 
 echo "Notifying Sentry:"
 if [ -n "$SENTRY_API_KEY" ]; then
+    export CIRCLE_PROJECT_REPONAME_LOWER=$(echo $CIRCLE_PROJECT_REPONAME | tr '[:upper:]' '[:lower:]')
     curl -sX POST "https://sentry.io/api/0/organizations/$SENTRY_ORGANIZATION/releases/" \
         -H "Authorization: Bearer $SENTRY_API_KEY" \
         -H "Content-Type: application/json" \
-        -d "{\"version\": \"$CIRCLE_PROJECT_REPONAME-$CIRCLE_BUILD_NUM\", \"url\": \"$CIRCLE_BUILD_URL\", \"environment\": \"production\", \"projects\": [\"$CIRCLE_PROJECT_REPONAME\"]}"
+        -d "{\"version\": \"$CIRCLE_PROJECT_REPONAME-$CIRCLE_BUILD_NUM\", \"url\": \"$CIRCLE_BUILD_URL\", \"environment\": \"production\", \"projects\": [\"$CIRCLE_PROJECT_REPONAME_LOWER\"]}"
       echo ""
 else
     echo "Variable is Unset - SENTRY_API_KEY"
