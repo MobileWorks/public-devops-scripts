@@ -39,9 +39,9 @@ fi
 
 echo "Sending Email Notification:"
 if [ -n "$MAILGUN_API_KEY" ]; then
-    curl -sX POST https://api.mailgun.net/v3/leadgeni.us/messages \
+    curl -sX POST https://api.mailgun.net/v3/email.leadgenius.com/messages \
         -u "api:$MAILGUN_API_KEY" \
-        -F from='Deployments <postmaster@leadgeni.us>' \
+        -F from='Deployments <postmaster@leadgenis.com>' \
         -F to='product@leadgenius.com' \
         -F subject="Deployment: $CIRCLE_PROJECT_REPONAME" \
         -F text="Your friendly neighborhood LG engineering team just deployed a new version." \
