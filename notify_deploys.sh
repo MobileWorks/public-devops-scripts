@@ -39,7 +39,7 @@ fi
 
 echo "Sending Email Notification:"
 if [ -n "$MAILGUN_API_KEY" ]; then
-    curl -sX POST https://api.mailgun.net/v3/email.leadgenius.com/messages \
+    curl -sX POST https://api.mailgun.net/v3/leadgenius.com/messages \
         -u "api:$MAILGUN_API_KEY" \
         -F from='Deployments <postmaster@leadgenis.com>' \
         -F to='product@leadgenius.com' \
